@@ -1,0 +1,29 @@
+%h2 Sign up
+= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+  = render "devise/shared/error_messages", resource: resource
+  .field.mb-20
+    = f.label :name do
+      What should we call you?
+      %br
+      = f.text_field :name, autofocus: true
+  .field
+    = f.label :email do
+      And your email address?
+      %br
+      = f.email_field :email
+  .field
+    = f.label :password do
+      What's a password we can use to secure your account?
+      - if @minimum_password_length
+        %em
+          (#{@minimum_password_length} characters minimum)
+      %br/
+      = f.password_field :password, autocomplete: "new-password"
+  .field
+    = f.label :password_confirmation do
+      Finally, can you retype that password?
+      %br/
+      = f.password_field :password_confirmation, autocomplete: "new-password"
+  .actions
+    = f.submit "Sign me up already"
+= render "devise/shared/links"

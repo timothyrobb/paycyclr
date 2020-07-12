@@ -1,0 +1,12 @@
+%h1 Welcome to Paycyclr
+
+%h3 We're still getting things ready right now.
+
+%p
+- if user_signed_in?
+  = "Welcome, #{current_user.name}."
+  Get to your dashboard,
+  = link_to "here", dashboard_path
+- else
+  If you're a tester, you can log in
+  = link_to "here", new_user_session_path

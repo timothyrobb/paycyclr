@@ -1,0 +1,12 @@
+!!!
+%html
+  %head= render partial: "layouts/shared_heads"
+  %body
+    #left-nav
+      = render "shared/left_nav"
+    #main-container
+      %p.notice
+        = notice
+      %p.alert
+        = alert
+      = yield
