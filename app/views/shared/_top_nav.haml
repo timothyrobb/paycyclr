@@ -1,0 +1,5 @@
+%span.navbar-brand.col-sm-3.col-md-2.mr-0 
+  Paycyclr
+%ul.navbar-nav.px-3
+  %li.nav-item.text-nowrap
+    = link_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-link"
