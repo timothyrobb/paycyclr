@@ -1,4 +1,10 @@
-.sidebar-sticky
-  %ul.nav.flex-column
-    %li.nav-item
-      = link_to "Dashboard", dashboard_path, class: "nav-link"
+%nav.col-md-2.d-none.d-md-block.bg-dark.text-white.sidebar
+  .sidebar-sticky
+    %ul.nav.flex-column
+      %li.nav-item
+        = link_to app_dashboard_path, class: "nav-link" do
+          = icon('house-fill')
+          Dashboard
+        = link_to app_income_sources_path, class: "nav-link" do
+          = icon('wallet-fill')
+          Income Sources

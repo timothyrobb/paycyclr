@@ -5,5 +5,7 @@ class User < ApplicationRecord
     :trackable, :lockable, :omniauthable, :timeoutable
 
   # Main Attributes: (excl. devise)
-  # Email, Name
+  # Email, Name, Incomes
+
+  has_many :income_sources
 end

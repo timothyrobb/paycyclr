@@ -6,7 +6,7 @@
 - if user_signed_in?
   = "Welcome, #{current_user.name}."
   Get to your dashboard,
-  = link_to "here", dashboard_path
+  = link_to "here", app_dashboard_path
 - else
   If you're a tester, you can log in
   = link_to "here", new_user_session_path

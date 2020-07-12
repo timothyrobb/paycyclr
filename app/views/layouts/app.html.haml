@@ -2,12 +2,10 @@
 %html
   %head= render partial: "layouts/shared_heads"
   %body
-    %nav.navbar.navbar-dark.fixed-top.bg-dark.flex-md-nowrap.p-0.shadow
-      = render "shared/top_nav"
+    = render "shared/top_nav"
     .container-fluid
       .row
-        %nav.col-md-2.d-none.d-md-block.bg-dark.text-white.sidebar
-          = render "shared/left_nav"
+        = render "shared/left_nav"
         %main.col-md-9.ml-sm-auto.col-lg-10.px-4
           %p.notice
             = notice

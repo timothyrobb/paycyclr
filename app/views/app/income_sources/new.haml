@@ -1,0 +1,9 @@
+%h2 New Income Source
+= form_for [:app, @income_source], html: {class: "form-inline"} do |f|
+  = f.text_field :name, placeholder: "Name", class: 'form-control'
+  .input-group.mr-10.ml-10
+    .input-group-prepend
+      .input-group-text= currency_symbol
+    = f.number_field :amount, placeholder: "Amount", class: 'form-control'
+  = f.select :frequency, options_for_select([["Yearly", :yearly], ["Monthly", :monthly]]), {}, class: 'form-control'
+  = f.submit "Create", class: 'form-control'

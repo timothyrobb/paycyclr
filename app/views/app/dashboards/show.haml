@@ -1,0 +1,8 @@
+%p Welcome, #{current_user.name}.
+
+- if current_user.income_sources.none?
+  %p 
+    You currently have no income sources set up.
+    = link_to "Click Here", new_app_income_source_path
+    to do so.
+
