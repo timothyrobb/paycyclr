@@ -1,13 +1,16 @@
-%h2 Income Sources
+%h2 
+  Income Sources
+  = link_to new_app_income_source_path, class: "ml-5" do
+    %btn.btn.btn-info New Income Source
 
 %table
   %thead
-    %th Name
-    %th Frequency
-    %th Amount
+    %th.px-3 Name
+    %th.px-3 Frequency
+    %th.px-3 Amount
   %tbody
     - @income_sources.each do |income_source|
       %tr
-        %td= income_source.name
-        %td= income_source.frequency.name
-        %td= income_source.amount
+        %td.px-3= income_source.name
+        %td.px-3= income_source.frequency.name
+        %td.px-3= income_source.amount
