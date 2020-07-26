@@ -1,9 +1,11 @@
 %h2 New Income Source
 = form_for [:app, @income_source], html: {class: "form-inline"} do |f|
+  = hidden_field_tag :back_to_url, value: request.referer
+  = f.hidden_field :user_id, value: current_user.id
   = f.text_field :name, placeholder: "Name", class: 'form-control'
   .input-group.mr-10.ml-10
     .input-group-prepend
       .input-group-text= currency_symbol
-    = f.number_field :amount, placeholder: "Amount", class: 'form-control'
-  = f.select :frequency, options_for_select([["Yearly", :yearly], ["Monthly", :monthly]]), {}, class: 'form-control'
+    = f.number_field :amount, placeholder: "Amount", step: :any, class: 'form-control'
+  = f.select :frequency_id, options_from_collection_for_select(Frequency.all, :id, :name, @income_source.frequency&.id), {}, class: 'form-control'
   = f.submit "Create", class: 'form-control'

@@ -10,19 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_12_202829) do
+ActiveRecord::Schema.define(version: 2020_07_26_213508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "frequencies", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.integer "base_days"
+    t.integer "amount", default: 1
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["slug"], name: "index_frequencies_on_slug"
+  end
+
   create_table "income_sources", force: :cascade do |t|
-    t.string "frequency"
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
     t.integer "amount_cents", default: 0, null: false
     t.string "amount_currency", default: "NZD", null: false
+    t.bigint "frequency_id"
+    t.index ["frequency_id"], name: "index_income_sources_on_frequency_id"
     t.index ["user_id"], name: "index_income_sources_on_user_id"
   end
 

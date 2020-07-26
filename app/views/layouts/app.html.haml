@@ -6,9 +6,11 @@
     .container-fluid
       .row
         = render "shared/left_nav"
-        %main.col-md-9.ml-sm-auto.col-lg-10.px-4
-          %p.notice
-            = notice
-          %p.alert
-            = alert
+        %main.col-md-9.ml-sm-auto.col-lg-10.px-4.pt-5
+          - if notice.present?
+            %p.notice
+              = notice
+          - if alert.present?
+            %p.alert
+              = alert
           = yield

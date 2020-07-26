@@ -14,7 +14,14 @@ class App::IncomeSourcesController < AuthenticatedController
   end
 
   def create
-    # TODO
+    @income_source = IncomeSource.new(income_source_params)
+
+    if @income_source.save
+      redirect_to (params[:back_to_url] || {action: :index}), notice: "Income Source #{@income_source.name} created successfully!"
+    else
+      flash.alert = @income_source.errors.full_messages.map{ |m| "• #{m}".html_safe }.join("<br/>").html_safe
+      render :new
+    end
   end
 
   def edit
@@ -23,5 +30,11 @@ class App::IncomeSourcesController < AuthenticatedController
 
   def update
     # TODO
+  end
+
+  private
+
+  def income_source_params
+    params.require(:income_source).permit(:id, :user_id, :name, :amount, :frequency_id)
   end
 end

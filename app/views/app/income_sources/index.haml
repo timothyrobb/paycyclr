@@ -1,0 +1,13 @@
+%h2 Income Sources
+
+%table
+  %thead
+    %th Name
+    %th Frequency
+    %th Amount
+  %tbody
+    - @income_sources.each do |income_source|
+      %tr
+        %td= income_source.name
+        %td= income_source.frequency.name
+        %td= income_source.amount
