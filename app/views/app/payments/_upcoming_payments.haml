@@ -1,0 +1,16 @@
+%table
+  %thead
+    %th.px-3 Name
+    %th.px-3 Account
+    %th.px-3 Amount
+    %th.px-3 Due In
+    %th.px-3 Optional
+  %tbody
+    - payments.each do |payment|
+      %tr
+        %td.px-3= payment.name
+        %td.px-3= payment.account
+        %td.px-3= "-#{Money.new(payment.amount).format}"
+        %td.px-3{ data: { toggle: 'tooltip', title: payment.due_date.strftime("%d/%m/%Y") } }
+          = distance_of_time_in_words_to_now(payment.due_date)
+        %td.px-3= payment.optional? ? "Yes" : "No"

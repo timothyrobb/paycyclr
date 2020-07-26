@@ -1,0 +1,48 @@
+%h2 New Payment
+= form_for [:app, @payment], html: {class: "px-5"} do |f|
+  = hidden_field_tag :back_to_url, value: params[:back_to_url] || request.referer
+  = f.hidden_field :user_id, value: current_user.id
+
+  .form-group.row
+    = f.label :name, class: 'col-sm-2 col-form-label'
+    .col-sm-10
+      = f.text_field :name, placeholder: "Name", class: 'form-control'
+
+  .form-group.row
+    = f.label :account, class: 'col-sm-2 col-form-label' do
+      Account Identifier
+    .col-sm-10
+      = f.text_field :account, placeholder: "Account Identifier", class: 'form-control'
+
+  .form-group.row
+    = f.label :amount, class: 'col-sm-2 col-form-label'
+    .col-sm-10
+      .input-group.mr-10.ml-10
+        .input-group-prepend
+          .input-group-text= currency_symbol
+        = f.number_field :amount, placeholder: "Amount", step: :any, class: 'form-control'
+
+  .form-group.row
+    = f.label :due_date, class: 'col-sm-2 col-form-label'
+    .col-sm-10
+      .row.ml-0
+        = f.date_select :due_date, {prompt: true}, class: 'form-control col-sm-2 mr-2'
+
+  .form-group.row
+    .col-sm-2
+      = f.label :optional
+      %em.small
+        Not required to be paid
+    .col-sm-10
+      = f.check_box :optional
+
+  .form-group.row
+    .col-sm-2
+      = f.label :frequency
+
+    .col-sm-10
+      = link_to "#", data: { pass_data_to: new_app_payment_schedule_path } do
+        Turn into Schedule
+
+
+  = f.submit "Create", class: 'btn btn-primary'

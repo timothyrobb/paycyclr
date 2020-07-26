@@ -10,18 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_26_213508) do
+ActiveRecord::Schema.define(version: 2020_07_26_213510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "frequencies", force: :cascade do |t|
-    t.string "name"
     t.string "slug"
-    t.integer "base_days"
     t.integer "amount", default: 1
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "start_date"
     t.index ["slug"], name: "index_frequencies_on_slug"
   end
 
@@ -35,6 +34,24 @@ ActiveRecord::Schema.define(version: 2020_07_26_213508) do
     t.bigint "frequency_id"
     t.index ["frequency_id"], name: "index_income_sources_on_frequency_id"
     t.index ["user_id"], name: "index_income_sources_on_user_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string "type"
+    t.string "name"
+    t.string "account"
+    t.integer "amount"
+    t.datetime "due_date"
+    t.boolean "optional", default: false, null: false
+    t.datetime "skipped_at"
+    t.bigint "schedule_id"
+    t.bigint "user_id", null: false
+    t.bigint "frequency_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["frequency_id"], name: "index_payments_on_frequency_id"
+    t.index ["schedule_id"], name: "index_payments_on_schedule_id"
+    t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -64,4 +81,7 @@ ActiveRecord::Schema.define(version: 2020_07_26_213508) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "payments", "frequencies"
+  add_foreign_key "payments", "payments", column: "schedule_id"
+  add_foreign_key "payments", "users"
 end

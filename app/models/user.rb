@@ -8,4 +8,6 @@ class User < ApplicationRecord
   # Email, Name, Incomes
 
   has_many :income_sources
+  has_many :payments, -> { one_offs }
+  has_many :payment_schedules, -> { schedules }, class_name: "::PaymentSchedule"
 end

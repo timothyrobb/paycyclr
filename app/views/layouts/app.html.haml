@@ -8,9 +8,9 @@
         = render "shared/left_nav"
         %main.col-md-9.ml-sm-auto.col-lg-10.px-4.pt-5
           - if notice.present?
-            %p.notice
-              = notice
+            .alert.alert-success
+              = notice.html_safe
           - if alert.present?
-            %p.alert
-              = alert
+            .alert.alert-danger
+              = alert.html_safe
           = yield

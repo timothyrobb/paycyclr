@@ -7,6 +7,8 @@ require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
+require("pass_form_data_to_url")
+require("tooltips")
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference

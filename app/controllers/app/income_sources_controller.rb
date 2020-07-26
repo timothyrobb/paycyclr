@@ -35,6 +35,6 @@ class App::IncomeSourcesController < AuthenticatedController
   private
 
   def income_source_params
-    params.require(:income_source).permit(:id, :user_id, :name, :amount, :frequency_id)
+    params.require(:income_source).permit(:id, :user_id, :name, :amount, :frequency)
   end
 end

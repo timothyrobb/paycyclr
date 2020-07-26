@@ -6,11 +6,12 @@
 %table
   %thead
     %th.px-3 Name
-    %th.px-3 Frequency
+    %th.px-3 Next Pay
     %th.px-3 Amount
   %tbody
     - @income_sources.each do |income_source|
       %tr
         %td.px-3= income_source.name
-        %td.px-3= income_source.frequency.name
-        %td.px-3= income_source.amount
+        %td.px-3{ data: { toggle: 'tooltip', title: income_source.frequency.next_date.strftime("%d/%m/%Y") } }
+          = distance_of_time_in_words_to_now(income_source.frequency.next_date)
+        %td.px-3= Money.new(income_source.amount).format

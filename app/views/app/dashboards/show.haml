@@ -4,5 +4,22 @@
   %p 
     You currently have no income sources set up.
     = link_to "Click Here", new_app_income_source_path
-    to do so.
+    to define your income sources.
+- if current_user.payments.none?
+  %p
+    You currently have no pending payments set up.
+    = link_to "Click Here", new_app_payment_path
+    to create new payments.
+
+-# TODO: If payments due still not marked as done
+
+-# TODO: Only display the below if all payments marked as done
+- if current_user.income_sources.any? && current_user.payments.any?
+  - next_pay = IncomeSource.joins(:frequency).where(user: current_user).order("frequencies.start_date" => :desc).first
+  %h3 
+    Next pay in
+    = distance_of_time_in_words_to_now(next_pay.frequency.next_date)
+
+  %h3 Upcoming Payments
+  = render partial: "app/payments/upcoming_payments", locals: { payments: current_user.payments }
 
