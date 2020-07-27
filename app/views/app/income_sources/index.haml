@@ -8,6 +8,7 @@
     %th.px-3 Name
     %th.px-3 Next Pay
     %th.px-3 Amount
+    %th
   %tbody
     - @income_sources.each do |income_source|
       %tr
@@ -15,3 +16,5 @@
         %td.px-3{ data: { toggle: 'tooltip', title: income_source.frequency.next_date.strftime("%d/%m/%Y") } }
           = distance_of_time_in_words_to_now(income_source.frequency.next_date)
         %td.px-3= Money.new(income_source.amount).format
+        %td
+          %button.btn.btn-primary= link_to "Edit", edit_app_income_source_path(income_source), class: "text-white"

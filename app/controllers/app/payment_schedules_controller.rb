@@ -27,7 +27,8 @@ class App::PaymentSchedulesController < AuthenticatedController
     @schedule = PaymentSchedule.new(schedule_params)
 
     if @schedule.save
-      redirect_to (params[:back_to_url] || {action: :index}), notice: "Payment Schedule #{@schedule.name} created successfully!"
+      url = current_user.payment_schedules.one? ? app_dashboard_path : {action: :index}
+      redirect_to url, notice: "Payment Schedule '#{@schedule.name}' created successfully!"
     else
       errors = @schedule.errors.full_messages.map{ |m| "• #{m}" }.join("<br/>")
       redirect_to params.merge(action: :new).permit!.to_h, alert: errors
@@ -35,11 +36,19 @@ class App::PaymentSchedulesController < AuthenticatedController
   end
 
   def edit
-    # TODO
+    @schedule = current_user.payment_schedules.find(params[:id])
+    @schedule.assign_attributes(schedule_params(required: false))
   end
 
   def update
-    # TODO
+    @schedule = current_user.payment_schedules.find(params[:id])
+
+    if @schedule.update_attributes(schedule_params)
+      redirect_to app_payments_path, notice: "Payment Schedule '#{@schedule.name}' saved successfully!"
+    else
+      errors = @schedule.errors.full_messages.map{ |m| "• #{m}" }.join("<br/>")
+      redirect_to params.merge(action: :edit).permit!.to_h, alert: errors
+    end
   end
 
   private

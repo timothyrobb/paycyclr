@@ -17,7 +17,8 @@ class App::IncomeSourcesController < AuthenticatedController
     @income_source = IncomeSource.new(income_source_params)
 
     if @income_source.save
-      redirect_to (params[:back_to_url] || {action: :index}), notice: "Income Source #{@income_source.name} created successfully!"
+      url = current_user.income_sources.one? ? app_dashboard_path : {action: :index}
+      redirect_to url, notice: "Income Source #{@income_source.name} created successfully!"
     else
       flash.alert = @income_source.errors.full_messages.map{ |m| "• #{m}".html_safe }.join("<br/>").html_safe
       render :new
@@ -25,16 +26,28 @@ class App::IncomeSourcesController < AuthenticatedController
   end
 
   def edit
-    # TODO
+    @income_source = current_user.income_sources.find(params[:id])
+    @income_source.assign_attributes(income_source_params(required: false))
   end
 
   def update
-    # TODO
+    @income_source = current_user.income_sources.find(params[:id])
+
+    if @income_source.update_attributes(income_source_params)
+      redirect_to action: :index, notice: "Income Source '#{@income_source.name}' saved successfully!"
+    else
+      errors = @income_source.errors.full_messages.map{ |m| "• #{m}" }.join("<br/>")
+      redirect_to params.merge(action: :edit).permit!.to_h, alert: errors
+    end
   end
 
   private
 
-  def income_source_params
-    params.require(:income_source).permit(:id, :user_id, :name, :amount, :frequency)
+  def income_source_params(required: true)
+    if required
+      params.require(:income_source)
+    else
+      params.fetch(:income_source, {})
+    end.permit(:id, :user_id, :name, :amount, :frequency)
   end
 end

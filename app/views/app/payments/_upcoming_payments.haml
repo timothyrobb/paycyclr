@@ -5,6 +5,7 @@
     %th.px-3 Amount
     %th.px-3 Due In
     %th.px-3 Optional
+    %th
   %tbody
     - payments.each do |payment|
       %tr
@@ -14,3 +15,8 @@
         %td.px-3{ data: { toggle: 'tooltip', title: payment.due_date.strftime("%d/%m/%Y") } }
           = distance_of_time_in_words_to_now(payment.due_date)
         %td.px-3= payment.optional? ? "Yes" : "No"
+        %td
+          %button.btn.btn-primary= link_to "Edit", edit_app_payment_path(payment), class: "text-white"
+          %button.btn.btn-success= link_to "Paid", pay_app_payment_path(payment), class: "text-white"
+          %button.btn.btn-secondary= link_to "Skip", skip_app_payment_path(payment), class: "text-white"
+

@@ -6,7 +6,12 @@ Rails.application.routes.draw do
   namespace :app do
     resource :dashboard
     resources :income_sources
-    resources :payments
+    resources :payments do
+      member do
+        get :pay
+        get :skip
+      end
+    end
     resources :payment_schedules
   end
 end

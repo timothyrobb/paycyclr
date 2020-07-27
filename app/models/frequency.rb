@@ -33,4 +33,12 @@ class Frequency < ApplicationRecord
     start_date + (base_days * amount - 1).days
   end
 
+  def end_date
+    next_date + (base_days * amount - 1).days
+  end
+
+  def next_range
+    next_date..end_date
+  end
+
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_26_213510) do
+ActiveRecord::Schema.define(version: 2020_07_27_232312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,7 +40,6 @@ ActiveRecord::Schema.define(version: 2020_07_26_213510) do
     t.string "type"
     t.string "name"
     t.string "account"
-    t.integer "amount"
     t.datetime "due_date"
     t.boolean "optional", default: false, null: false
     t.datetime "skipped_at"
@@ -49,6 +48,9 @@ ActiveRecord::Schema.define(version: 2020_07_26_213510) do
     t.bigint "frequency_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "amount_cents", default: 0, null: false
+    t.string "amount_currency", default: "NZD", null: false
+    t.datetime "paid_at"
     t.index ["frequency_id"], name: "index_payments_on_frequency_id"
     t.index ["schedule_id"], name: "index_payments_on_schedule_id"
     t.index ["user_id"], name: "index_payments_on_user_id"

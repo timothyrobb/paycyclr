@@ -1,5 +1,3 @@
-%p Welcome, #{current_user.name}.
-
 - if current_user.income_sources.none?
   %p 
     You currently have no income sources set up.
@@ -11,15 +9,30 @@
     = link_to "Click Here", new_app_payment_path
     to create new payments.
 
--# TODO: If payments due still not marked as done
-
--# TODO: Only display the below if all payments marked as done
-- if current_user.income_sources.any? && current_user.payments.any?
-  - next_pay = IncomeSource.joins(:frequency).where(user: current_user).order("frequencies.start_date" => :desc).first
+- if current_user.income_sources.any?
   %h3 
     Next pay in
-    = distance_of_time_in_words_to_now(next_pay.frequency.next_date)
+    = distance_of_time_in_words_to_now(@next_pay.frequency.next_date)
+    (#{@next_pay.name})
 
-  %h3 Upcoming Payments
-  = render partial: "app/payments/upcoming_payments", locals: { payments: current_user.payments }
+%h3 Payments To Do
+- if @paycycle_payments.any?
+  - if @paycycle_payments.active.any?
+    = render partial: "app/payments/upcoming_payments", locals: { payments: @paycycle_payments.active }
+  - else
+    You've completed all your payments for this paycycle! Congratulations!
+- else
+  You have no payments scheduled for this paycycle.
+  = link_to "Click Here", new_app_payment_path
+  to create some new ones.
 
+%h3 Next Pay's Payments
+- if @upcoming_payments.any?
+  - if @upcoming_payments.active.any?
+    = render partial: "app/payments/upcoming_payments", locals: { payments: @upcoming_payments.active }
+  - else
+    You've completed all your payments for this paycycle! Congratulations!
+- else
+  You have no payments scheduled for this paycycle.
+  = link_to "Click Here", new_app_payment_path
+  to create some new ones.

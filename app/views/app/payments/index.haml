@@ -20,6 +20,7 @@
     %th.px-3 Amount
     %th.px-3 Next Payment
     %th.px-3 Optional
+    %th
   %tbody
     - @schedules.each do |schedule|
       %tr
@@ -29,3 +30,5 @@
         %td.px-3{ data: { toggle: 'tooltip', title: schedule.frequency.next_date.strftime("%d/%m/%Y") } }
           = distance_of_time_in_words_to_now(schedule.frequency.next_date)
         %td.px-3= schedule.optional? ? "Yes" : "No"
+        %td
+          %button.btn.btn-primary= link_to "Edit", edit_app_payment_schedule_path(schedule), class: "text-white"

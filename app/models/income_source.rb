@@ -10,4 +10,6 @@ class IncomeSource < ApplicationRecord
 
   accepts_nested_attributes_for :frequency
 
+  scope :next_source, -> { joins(:frequency).order("frequencies.start_date" => :desc).first }
+
 end

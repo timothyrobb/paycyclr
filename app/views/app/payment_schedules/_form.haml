@@ -1,0 +1,53 @@
+- form_action ||= "Create"
+= form_for [:app, @schedule], html: {class: "px-5"} do |f|
+  = f.hidden_field :user_id, value: current_user.id
+
+  .form-group.row
+    = f.label :name, class: 'col-sm-2 col-form-label'
+    .col-sm-10
+      = f.text_field :name, placeholder: "Name", class: 'form-control'
+
+  .form-group.row
+    = f.label :account, class: 'col-sm-2 col-form-label' do
+      Account Identifier
+    .col-sm-10
+      = f.text_field :account, placeholder: "Account Identifier", class: 'form-control'
+
+  .form-group.row
+    = f.label :amount, class: 'col-sm-2 col-form-label'
+    .col-sm-10
+      .input-group.mr-10.ml-10
+        .input-group-prepend
+          .input-group-text
+            \-
+            = currency_symbol
+        = f.number_field :amount, placeholder: "Amount", step: :any, class: 'form-control'
+
+  .form-group.row
+    .col-sm-2
+      = f.label :optional
+      %em.small
+        Not required to be paid
+    .col-sm-10
+      = f.check_box :optional
+
+  = f.fields_for :frequency, @frequency do |ff|
+    = ff.hidden_field :id
+
+    .form-group.row
+      = ff.label :amount, class: 'col-sm-2 col-form-label' do
+        Frequency
+      .col-sm-10
+        .input-group
+          .input-group-prepend.mr-2
+            = ff.number_field :amount, min: 1, step: 1, class: 'form-control'
+          = ff.select :slug, options_for_select(Frequency.select_options, @schedule.frequency&.slug), {}, class: 'form-control', prompt: "Select"
+
+    .form-group.row
+      = ff.label :start_date, class: 'col-sm-2 col-form-label'
+      .col-sm-10
+        .row.ml-0
+          = ff.date_select :start_date, {prompt: true}, class: 'form-control col-sm-2 mr-2'
+
+
+  = f.submit form_action, class: 'btn btn-primary'
