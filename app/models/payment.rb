@@ -1,7 +1,7 @@
 class Payment < ApplicationRecord
   # type, name, account, amount, due_date, optional, skipped_at, schedule
 
-  default_scope { order(amount_cents: :desc) }
+  default_scope { order(account: :asc, amount_cents: :desc) }
 
   monetize :amount_cents
 

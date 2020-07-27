@@ -35,6 +35,12 @@
     = ff.hidden_field :id
 
     .form-group.row
+      = ff.label :start_date, class: 'col-sm-2 col-form-label'
+      .col-sm-10
+        .row.ml-0
+          = ff.date_select :start_date, {prompt: true}, class: 'form-control col-sm-2 mr-2'
+
+    .form-group.row
       = ff.label :amount, class: 'col-sm-2 col-form-label' do
         Frequency
       .col-sm-10
@@ -42,12 +48,6 @@
           .input-group-prepend.mr-2
             = ff.number_field :amount, min: 1, step: 1, class: 'form-control'
           = ff.select :slug, options_for_select(Frequency.select_options, @schedule.frequency&.slug), {}, class: 'form-control', prompt: "Select"
-
-    .form-group.row
-      = ff.label :start_date, class: 'col-sm-2 col-form-label'
-      .col-sm-10
-        .row.ml-0
-          = ff.date_select :start_date, {prompt: true}, class: 'form-control col-sm-2 mr-2'
 
 
   = f.submit form_action, class: 'btn btn-primary'

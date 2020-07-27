@@ -22,3 +22,12 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+# TODO:
+
+* default due date to next pay date
+* default payment schedule frequency to income source frequency
+* payments created on schedule aren't attached to schedule
+* add remaining amount
+* lots and lots more...

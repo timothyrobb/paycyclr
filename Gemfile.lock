@@ -90,9 +90,6 @@ GEM
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
-    js-routes (1.4.9)
-      railties (>= 4)
-      sprockets-rails
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -240,7 +237,6 @@ DEPENDENCIES
   devise
   haml
   jbuilder (~> 2.7)
-  js-routes
   listen (~> 3.2)
   money-rails
   omniauth
@@ -257,7 +253,7 @@ DEPENDENCIES
   webpacker (~> 4.0)
 
 RUBY VERSION
-   ruby 2.5.7p206
+   ruby 2.6.5p114
 
 BUNDLED WITH
    2.1.4

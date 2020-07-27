@@ -27,8 +27,7 @@ class App::PaymentSchedulesController < AuthenticatedController
     @schedule = PaymentSchedule.new(schedule_params)
 
     if @schedule.save
-      url = current_user.payment_schedules.one? ? app_dashboard_path : {action: :index}
-      redirect_to url, notice: "Payment Schedule '#{@schedule.name}' created successfully!"
+      redirect_to app_payments_path, notice: "Payment Schedule '#{@schedule.name}' created successfully!"
     else
       errors = @schedule.errors.full_messages.map{ |m| "• #{m}" }.join("<br/>")
       redirect_to params.merge(action: :new).permit!.to_h, alert: errors

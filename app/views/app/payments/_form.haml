@@ -24,18 +24,18 @@
         = f.number_field :amount, placeholder: "Amount", step: :any, class: 'form-control'
 
   .form-group.row
-    = f.label :due_date, class: 'col-sm-2 col-form-label'
-    .col-sm-10
-      .row.ml-0
-        = f.date_select :due_date, {prompt: true}, class: 'form-control col-sm-2 mr-2'
-
-  .form-group.row
     .col-sm-2
       = f.label :optional
       %em.small
         Not required to be paid
     .col-sm-10
       = f.check_box :optional
+
+  .form-group.row
+    = f.label :due_date, class: 'col-sm-2 col-form-label'
+    .col-sm-10
+      .row.ml-0
+        = f.date_select :due_date, {prompt: true}, class: 'form-control col-sm-2 mr-2'
 
   - unless @payment.schedule.present?
     .form-group.row
